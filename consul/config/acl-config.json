@@ -1,0 +1,14 @@
+{
+  "acl": {
+    "enabled": true,
+    "default_policy": "deny",
+    "down_policy": "extend-cache",
+    "enable_token_persistence": true,
+    "tokens": {
+      "master": "a06a8a3b-9cd3-b9e2-98fc-7274748aae8b",
+      "default": "a06a8a3b-9cd3-b9e2-98fc-7274748aae8b",
+      "agent": "a06a8a3b-9cd3-b9e2-98fc-7274748aae8b",
+      "initial_management": "a06a8a3b-9cd3-b9e2-98fc-7274748aae8b"
+    }
+  }
+}

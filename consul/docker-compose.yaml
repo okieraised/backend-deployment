@@ -1,0 +1,138 @@
+version: '3.7'
+
+services:
+  consul-server-1:
+    image: hashicorp/consul:latest
+    container_name: consul-server-1
+    networks:
+      - consul
+    restart: always
+    ports:
+      - "8501:8501"
+      - "8600:8600/tcp"
+      - "8600:8600/udp"
+    command:
+      - "agent"
+      - "-bind=0.0.0.0"
+      - "-bootstrap-expect=5"
+    volumes:
+      - ./config/server-1.json:/consul/config/server1.json:ro
+      - ./config/acl-config.json:/consul/config/consul-acl.json
+      - ./acl_policy/:/consul/config/acls/
+      - ../certs/consul/:/consul/config/certs/:ro
+      - /consul1:/consul/data/
+
+  consul-server-2:
+    image: hashicorp/consul:latest
+    container_name: consul-server-2
+    networks:
+      - consul
+    restart: always
+    command:
+      - "agent"
+      - "-bind=0.0.0.0"
+      - "-bootstrap-expect=5"
+    volumes:
+      - ./config/server-2.json:/consul/config/server2.json:ro
+      - ./config/acl-config.json:/consul/config/consul-acl.json
+      - ./acl_policy/:/tmp/hcl/
+      - ../certs/consul/:/consul/config/certs/:ro
+      - /consul2:/consul/data/
+
+  consul-server-3:
+    image: hashicorp/consul:latest
+    container_name: consul-server-3
+    networks:
+      - consul
+    restart: always
+    command:
+      - "agent"
+      - "-bind=0.0.0.0"
+      - "-bootstrap-expect=5"
+    volumes:
+      - ./config/server-3.json:/consul/config/server3.json:ro
+      - ./config/acl-config.json:/consul/config/consul-acl.json
+      - ./acl_policy/:/tmp/hcl/
+      - ../certs/consul/:/consul/config/certs/:ro
+      - /consul3:/consul/data/
+
+  consul-server-4:
+    image: hashicorp/consul:latest
+    container_name: consul-server-4
+    networks:
+      - consul
+    restart: always
+    command:
+      - "agent"
+      - "-bind=0.0.0.0"
+      - "-bootstrap-expect=5"
+    volumes:
+      - ./config/server-4.json:/consul/config/server4.json:ro
+      - ./config/acl-config.json:/consul/config/consul-acl.json
+      - ./acl_policy/:/consul/config/acls/
+      - ../certs/consul/:/consul/config/certs/:ro
+      - /consul4:/consul/data/
+
+  consul-server-5:
+    image: hashicorp/consul:latest
+    container_name: consul-server-5
+    networks:
+      - consul
+    restart: always
+    command:
+      - "agent"
+      - "-bind=0.0.0.0"
+      - "-bootstrap-expect=5"
+    volumes:
+      - ./config/server-5.json:/consul/config/server5.json:ro
+      - ./config/acl-config.json:/consul/config/consul-acl.json
+      - ./acl_policy/:/consul/config/acls/
+      - ../certs/consul/:/consul/config/certs/:ro
+      - /consul5:/consul/data/
+
+  consul-client-1:
+    image: hashicorp/consul:latest
+    container_name: consul-client-1
+    restart: always
+    volumes:
+      - ./config/client-1.json:/consul/config/client1.json:ro
+      - ./config/acl-config.json:/consul/config/consul-acl.json
+      - ./acl_policy/:/consul/config/acls/
+      - ../certs/consul/:/consul/config/certs/:ro
+    networks:
+      - consul
+    command:
+      - "agent"
+
+  consul-client-2:
+    image: hashicorp/consul:latest
+    container_name: consul-client-2
+    restart: always
+    volumes:
+      - ./config/client-2.json:/consul/config/client2.json:ro
+      - ./config/acl-config.json:/consul/config/consul-acl.json
+      - ./acl_policy/:/consul/config/acls/
+      - ../certs/consul/:/consul/config/certs/:ro
+    networks:
+      - consul
+    command:
+      - "agent"
+
+  consul-client-3:
+    image: hashicorp/consul:latest
+    container_name: consul-client-3
+    restart: always
+    volumes:
+      - ./config/client-3.json:/consul/config/client3.json:ro
+      - ./config/acl-config.json:/consul/config/consul-acl.json
+      - ./acl_policy/:/consul/config/acls/
+      - ../certs/consul/:/consul/config/certs/:ro
+    networks:
+      - consul
+    command:
+      - "agent"
+
+
+networks:
+  consul:
+    external: true
