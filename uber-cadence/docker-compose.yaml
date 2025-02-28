@@ -1,0 +1,51 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:12.4
+    restart: always
+    networks:
+      - cadence
+    environment:
+      POSTGRES_USER: cadence
+      POSTGRES_PASSWORD: cadence
+    ports:
+      - "5432:5432"
+  cadence:
+    image: ubercadence/server:master-auto-setup
+    restart: always
+    networks:
+      - cadence
+    ports:
+      - "18000:8000"
+      - "18001:8001"
+      - "18002:8002"
+      - "18003:8003"
+      - "7933:7933"
+      - "7934:7934"
+      - "7935:7935"
+      - "7939:7939"
+      - "7833:7833"
+    environment:
+      - "DB=postgres"
+      - "DB_PORT=5432"
+      - "POSTGRES_USER=cadence"
+      - "POSTGRES_PWD=cadence"
+      - "POSTGRES_SEEDS=postgres"
+      - "DYNAMIC_CONFIG_FILE_PATH=config/dynamicconfig/development.yaml"
+    depends_on:
+      - postgres
+  cadence-web:
+    image: ubercadence/web:latest
+    restart: always
+    networks:
+      - cadence
+    environment:
+      - "CADENCE_TCHANNEL_PEERS=cadence:7933"
+    ports:
+      - "18088:8088"
+    depends_on:
+      - cadence
+
+networks:
+  cadence:
+    external: true

@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  emqx-1:
+    image: emqx:latest
+    restart: always
+    container_name: emqx-node-1
+    env_file:
+      - .env
+    environment:
+      - EMQX_NODE_NAME=emqx-cluster@node1.emqx.io
+    healthcheck:
+      test: ["CMD", "/opt/emqx/bin/emqx", "ctl", "status"]
+      interval: 3600s
+      timeout: 5s
+      retries: 2
+    networks:
+      emqx:
+        aliases:
+          - node1.emqx.io
+    ports:
+      - 41883:1883
+      - 4370:4370
+      - 5369:5369
+      - 48083:8083
+      - 48084:8084
+      - 48883:8883
+      - 48183:18083
+
+networks:
+  emqx:
+    external: true
