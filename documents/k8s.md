@@ -1,5 +1,12 @@
 ## ☸️ Useful Kubernetes (kubectl) Commands
 
+### 🔹 Installation
+| Command                                                                     | Description                       |
+|-----------------------------------------------------------------------------|-----------------------------------|
+| `curl -sfL https://get.k3s.io \| INSTALL_K3S_EXEC="--disable traefik" sh -` | Install k3s with traefik disabled |
+
+---
+
 ### 🔹 Cluster Info and Configuration
 
 | Command | Description |
