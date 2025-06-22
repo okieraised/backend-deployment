@@ -1,23 +1,20 @@
-version: '3'
 services:
   minio:
     image: minio/minio:latest
     restart: always
     networks:
-      - minio
+      - tripg
     ports:
       - "9000:9000"
       - "9001:9001"
     container_name: minio
     volumes:
-      - /minio/minio-data:/data
-    env_file:
-      - .env
+      - /home/tripg/workspace/docker-data/minio-data:/data
     environment:
       - MINIO_ACCESS_KEY=minioadmin
       - MINIO_SECRET_KEY=minioadmin
     command: server --console-address ":9001" /data
 
 networks:
-  minio:
+  tripg:
     external: true

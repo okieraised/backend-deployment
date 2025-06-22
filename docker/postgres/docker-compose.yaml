@@ -1,15 +1,17 @@
 services:
   postgres:
-    image: postgres:12.4
+    image: postgres:17.5
     restart: always
     networks:
-      - database
+      - tripg
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
     ports:
       - "5432:5432"
+    volumes:
+      - /home/tripg/workspace/docker-data/postgresql:/var/lib/postgresql/data
 
 networks:
-  database:
+  tripg:
     external: true
